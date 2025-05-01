@@ -5,137 +5,142 @@
   <title>중고차 정산서</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-    * { box-sizing: border-box; }
-    body {
-      font-family: sans-serif;
-      margin: 20px;
-      background-color: #f9f9f9;
-    }
-    h2 {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-    form, .unit-select {
-      background: #fff;
-      padding: 20px;
-      margin-top: 20px;
-      border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-    label {
-      display: inline-block;
-      margin-top: 10px;
-      font-weight: 600;
-    }
-    input, select {
-      width: 100%;
-      padding: 8px;
-      margin-top: 5px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-    .result {
-      margin-top: 20px;
-      font-weight: bold;
-      font-size: 1.2em;
-      color: #007BFF;
-    }
-    .radio-highlight input[type="radio"]:checked + span {
-      background-color: #ffd9d9;
-      color: #d60000;
-      font-weight: bold;
-      border-radius: 5px;
-      padding: 2px 6px;
-    }
-  </style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 20px;
+    background-color: #f5f7fa;
+    color: #333;
+  }
+  h2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+  form, .unit-select {
+    background: #ffffff;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  label {
+    display: block;
+    margin-top: 15px;
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+  input, select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    transition: border-color 0.2s;
+  }
+  input:focus, select:focus {
+    border-color: #007BFF;
+    outline: none;
+  }
+  .result {
+    margin-top: 25px;
+    font-weight: bold;
+    font-size: 1.2em;
+    color: #007BFF;
+  }
+  .radio-highlight input[type="radio"] {
+    display: none;
+  }
+  .radio-highlight span {
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-right: 8px;
+    font-size: 0.9rem;
+  }
+  .radio-highlight input[type="radio"]:checked + span {
+    background-color: #ffd9d9;
+    color: #d60000;
+    font-weight: bold;
+    border-color: #d60000;
+  }
+  button {
+    padding: 12px;
+    margin-top: 20px;
+    background: #28a745;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 100%;
+  }
+  button:hover {
+    background: #218838;
+  }
+</style>
 </head>
 <body>
   <h2>
     중고차 정산서
     <span>
       <label class="radio-highlight"><input type="radio" name="mode" value="brokerage" checked><span> 알선</span></label>
-      <label class="radio-highlight"><input type="radio" name="mode" value="purchase"><span> 매입</span></label>
     </span>
   </h2>
 
-  <label for="saleDate">판매 날짜:</label>
-  <input type="date" id="saleDate" max="2099-12-31">
+  
+<label for="deliveryDate">출고 날짜:</label>
+<input type="date" id="deliveryDate">
 
-  <label for="deliveryDate">출고 날짜:</label>
-  <input type="date" id="deliveryDate" max="2099-12-31">
+<label for="saleDate">계약 날짜:</label>
+<input type="date" id="saleDate">
 
-  <label for="playTime">플레이 시간:</label>
-  <select id="playTime">
-  <option value="">선택하세요</option>
-  <option value="1">1시간</option>
-  <option value="2">2시간</option>
-  <option value="3">3시간</option>
-  <option value="4">4시간</option>
-  <option value="5">5시간</option>
-  <option value="6">6시간</option>
-  <option value="7">7시간</option>
-  <option value="8">8시간</option>
-  <option value="9">9시간</option>
-  <option value="10">10시간</option>
-  <option value="11">11시간</option>
-  <option value="12">12시간</option>
-</select>
+<div class="unit-select" style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-top: 20px;">
+  <strong>단위:</strong>
+  <label class="radio-highlight"><input type="radio" name="unit" value="won"><span> 원</span></label>
+  <label class="radio-highlight"><input type="radio" name="unit" value="man" checked><span> 만원</span></label>
+</div>
 
-  <div class="unit-select" style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
-    <strong>단위:</strong>
-    <label class="radio-highlight"><input type="radio" name="unit" value="won"><span> 원</span></label>
-    <label class="radio-highlight"><input type="radio" name="unit" value="man" checked><span> 만원</span></label>
-  </div>
+<label for="salePrice">판매금액:</label>
+<input type="number" id="salePrice" placeholder="입력하세요">
 
-  <form id="mainForm">
-    <label for="salePrice">판매금액:</label>
-    <input type="number" id="salePrice" placeholder="입력하세요">
+<label for="ownerPayment">차주입금금액:</label>
+<input type="number" id="ownerPayment" placeholder="입력하세요">
 
-    <label for="ownerPayment">차주입금금액:</label>
-    <input type="number" id="ownerPayment" placeholder="입력하세요">
+<div class="unit-select" style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-top: 20px;">
+  <strong>계약:</strong>
+  <label class="radio-highlight"><input type="radio" name="type" value="down" checked><span> 다운계약</span></label>
+  <label class="radio-highlight"><input type="radio" name="type" value="normal"><span> 정계약</span></label>
+</div>
 
-    <div class="checkboxes" style="display: flex; gap: 10px; flex-wrap: wrap;">
-      <label class="radio-highlight"><input type="radio" name="type" value="down" checked><span> 다운계약</span></label>
-      <label class="radio-highlight"><input type="radio" name="type" value="normal"><span> 정계약</span></label>
-    </div>
 
-    <label for="commission">알선수수료:</label>
-    <input type="number" id="commission" placeholder="입력하세요">
 
-    <label for="serviceFee">서비스 비용:</label>
-    <input type="number" id="serviceFee" placeholder="입력하세요">
+  <label for="commission">알선수수료:</label>
+  <input type="number" id="commission" placeholder="입력하세요">
 
-    <div class="result" id="profitResult">총 수익: 0원</div>
+  <label for="serviceFee">서비스 비용:</label>
+  <input type="number" id="serviceFee" placeholder="입력하세요">
+</div>
+<div class="result" id="profitResult">총 수익: 0원</div>
 
-    <label>판매 구분:</label>
-    <label class="radio-highlight"><input type="radio" name="saleType" value="export"> <span>수출</span></label>
-    <label class="radio-highlight"><input type="radio" name="saleType" value="brokerage" checked> <span>손님</span></label>
+    <div id="brokerageExtras">
 
-    <h3>거래 정보 입력</h3>
-    <label for="carName">차량 이름:</label>
-    <input type="text" id="carName" placeholder="입력하세요">
-
-    <label for="carNumber">차량 번호:</label>
-    <input type="text" id="carNumber" placeholder="입력하세요">
-
-    <label for="ownerName">차주 이름:</label>
-    <input type="text" id="ownerName" placeholder="입력하세요">
-
-    <label for="ownerPhone">차주 번호:</label>
-    <input type="text" id="ownerPhone" placeholder="입력하세요">
-
-    <label for="customerName"><span>손님 이름:</span></label>
+  <div id="customerInfo">
+    <label for="customerName">손님 이름:</label>
     <input type="text" id="customerName" placeholder="입력하세요">
 
-    <label for="customerPhone"><span>손님 번호:</span></label>
+    <label for="customerPhone">손님 번호:</label>
     <input type="text" id="customerPhone" placeholder="입력하세요">
 
     <label for="customerType">손님 성향:</label>
     <input type="text" id="customerType" placeholder="입력하세요">
-
-    <label for="adPlatform">판매 경로:</label>
+  </div>
+</div>
+<label for="adPlatform">판매 경로:</label>
     <input type="text" id="adPlatform" placeholder="입력하세요">
   <button id="saveBtn" type="button" style="margin-top:20px;">저장하기</button>
 
@@ -150,6 +155,10 @@
 </form>
 
   <script>
+function getSelectedType() {
+  const typeRadios = document.getElementsByName('type');
+  return [...typeRadios].find(r => r.checked)?.value || 'down';
+}
     document.addEventListener('DOMContentLoaded', function () {
       const saleTypeRadios = document.getElementsByName('saleType');
       const exportFields = ['customerType'];
@@ -216,12 +225,21 @@
       }
 
       function updateFormMode() {
-        const selected = [...modeRadios].find(r => r.checked)?.value;
-        formElement.style.display = selected === 'brokerage' ? 'block' : 'none';
-        const display = selected === 'purchase' ? 'none' : 'inline-block';
-        playTime.style.display = display;
-        playTimeLabel.style.display = display;
-      }
+  const playTime = document.getElementById('playTime');
+  const playTimeLabel = document.querySelector('label[for="playTime"]');
+  if (playTime && playTimeLabel) {
+    playTime.style.display = 'inline-block';
+    playTimeLabel.style.display = 'inline-block';
+  }
+  const customerInfo = document.getElementById('customerInfo');
+  if (customerInfo) customerInfo.style.display = 'block';
+  const brokerageOnly = document.getElementById('brokerageOnly');
+  if (brokerageOnly) brokerageOnly.style.display = 'block';
+  const brokerageFields = document.getElementById('brokerageFields');
+  if (brokerageFields) brokerageFields.style.display = 'block';
+  const brokerageExtras = document.getElementById('brokerageExtras');
+  if (brokerageExtras) brokerageExtras.style.display = 'block';
+}
 
       [...saleTypeRadios, ...typeRadios, ...unitRadios, commissionInput, serviceFeeInput, salePriceInput, ownerPaymentInput, ...modeRadios].forEach(el => el.addEventListener('input', calculateProfit));
       saleTypeRadios.forEach(r => r.addEventListener('change', updateVisibilityBySaleType));
@@ -277,39 +295,29 @@
       }
 
       saveBtn.addEventListener('click', () => {
-        const carName = document.getElementById('carName').value;
-        const customerName = document.getElementById('customerName').value;
-        const deliveryDate = document.getElementById('deliveryDate').value;
+  const carName = document.getElementById('carName').value;
+  const customerName = document.getElementById('customerName').value;
+  const deliveryDate = document.getElementById('deliveryDate').value;
+  const profitText = document.getElementById('profitResult').textContent.replace(/[^0-9]/g, '');
+  const totalProfit = parseInt(profitText || '0');
+  const carNumber = document.getElementById('carNumber').value;
+  const ownerName = document.getElementById('ownerName').value;
+  const ownerPhone = document.getElementById('ownerPhone').value;
+  const customerPhone = document.getElementById('customerPhone').value;
+  const customerType = document.getElementById('customerType').value;
+  const adPlatform = document.getElementById('adPlatform').value;
+  const commission = document.getElementById('commission').value;
+  const serviceFee = document.getElementById('serviceFee').value;
+  const contractType = getSelectedType();
+  const saleType = [...document.getElementsByName('saleType')].find(r => r.checked)?.value || '-';
+  const playTime = document.getElementById('playTime').value;
+  const saleDate = document.getElementById('saleDate').value;
 
-        const current = JSON.parse(localStorage.getItem('savedCars') || '[]');
-        const profitText = document.getElementById('profitResult').textContent.replace(/[^0-9]/g, '');
-        const totalProfit = parseInt(profitText || '0');
-        const carNumber = document.getElementById('carNumber').value;
-        const ownerName = document.getElementById('ownerName').value;
-        const ownerPhone = document.getElementById('ownerPhone').value;
-        const customerPhone = document.getElementById('customerPhone').value;
-        const customerType = document.getElementById('customerType').value;
-        const adPlatform = document.getElementById('adPlatform').value;
-        const commission = document.getElementById('commission').value;
-        const serviceFee = document.getElementById('serviceFee').value;
-        const contractType = getSelectedType();
-        const saleType = [...document.getElementsByName('saleType')].find(r => r.checked)?.value || '-';
-        const playTime = document.getElementById('playTime').value;
-        const saleDate = document.getElementById('saleDate').value;
-        current.push({ carName, customerName, deliveryDate, totalProfit, carNumber, ownerName, ownerPhone, customerPhone, customerType, adPlatform, commission, serviceFee, contractType, saleType, playTime, saleDate });
-        localStorage.setItem('savedCars', JSON.stringify(current));
-        document.getElementById('savedList').addEventListener('click', function(e) {
-  if (e.target.classList.contains('deleteBtn')) {
-    const index = e.target.getAttribute('data-index');
-    const current = JSON.parse(localStorage.getItem('savedCars') || '[]');
-    current.splice(index, 1);
-    localStorage.setItem('savedCars', JSON.stringify(current));
-    loadSavedList();
-  }
+  const current = JSON.parse(localStorage.getItem('savedCars') || '[]');
+  current.push({ carName, customerName, deliveryDate, totalProfit, carNumber, ownerName, ownerPhone, customerPhone, customerType, adPlatform, commission, serviceFee, contractType, saleType, playTime, saleDate });
+  localStorage.setItem('savedCars', JSON.stringify(current));
+  loadSavedList();
 });
-
-loadSavedList();
-      });
 
       loadSavedList();
 </script>
