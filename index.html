@@ -5,321 +5,302 @@
   <title>중고차 정산서</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-  * { box-sizing: border-box; }
-  body {
-    font-family: 'Segoe UI', sans-serif;
-    margin: 20px;
-    background-color: #f5f7fa;
-    color: #333;
-  }
-  h2 {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    margin-bottom: 10px;
-  }
-  form, .unit-select {
-    background: #ffffff;
-    padding: 20px;
-    margin-top: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  }
-  label {
-    display: block;
-    margin-top: 15px;
-    font-weight: 600;
-    font-size: 0.95rem;
-  }
-  input, select {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    transition: border-color 0.2s;
-  }
-  input:focus, select:focus {
-    border-color: #007BFF;
-    outline: none;
-  }
-  .result {
-    margin-top: 25px;
-    font-weight: bold;
-    font-size: 1.2em;
-    color: #007BFF;
-  }
-  .radio-highlight input[type="radio"] {
-    display: none;
-  }
-  .radio-highlight span {
-    padding: 6px 12px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    cursor: pointer;
-    margin-right: 8px;
-    font-size: 0.9rem;
-  }
-  .radio-highlight input[type="radio"]:checked + span {
-    background-color: #ffd9d9;
-    color: #d60000;
-    font-weight: bold;
-    border-color: #d60000;
-  }
-  button {
-    padding: 12px;
-    margin-top: 20px;
-    background: #28a745;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-size: 1rem;
-    cursor: pointer;
-    width: 100%;
-  }
-  button:hover {
-    background: #218838;
-  }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f7f9fb;
+      color: #333;
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+    }
+    h2, h3 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+    .result {
+      margin-top: 20px;
+      font-weight: bold;
+      font-size: 18px;
+      color: #007bff;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 20px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #218838;
+    }
+    .popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      max-width: 400px;
+      z-index: 10;
+    }
+    .popup button {
+      margin-top: 15px;
+      background-color: #dc3545;
+    }
+    ul#savedList {
+      list-style: none;
+      padding: 0;
+    }
+    ul#savedList li {
+      background: #fff;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      cursor: pointer;
+    }
+    strong {
+      display: inline-block;
+      width: 110px;
+    }
+      .radio-group {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+    .radio-group label {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      cursor: pointer;
+      background-color: #f1f1f1;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .radio-group input[type="radio"] {
+      display: none;
+    }
+    .radio-group input[type="radio"]:checked + span {
+      background-color: #ff4d4d;
+      color: white;
+      font-weight: bold;
+    }
+    .radio-group span {
+      pointer-events: none;
+    }
 </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-  <h2>
-    중고차 정산서
-    <span>
-      <label class="radio-highlight"><input type="radio" name="mode" value="brokerage" checked><span> 알선</span></label>
-    </span>
-  </h2>
+  <h2>중고차 정산서</h2>
 
-  
-<label for="deliveryDate">출고 날짜:</label>
-<input type="date" id="deliveryDate">
+  <label for="carName">차량명:</label>
+  <input type="text" id="carName">
 
-<label for="saleDate">계약 날짜:</label>
-<input type="date" id="saleDate">
+  <label for="carNumber">차량번호:</label>
+  <input type="text" id="carNumber">
 
-<div class="unit-select" style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-top: 20px;">
+  <label for="deliveryDate">출고 날짜:</label>
+  <input type="date" id="deliveryDate">
+
+  <label for="saleDate">계약 날짜:</label>
+  <input type="date" id="saleDate">
+
+  <label for="playTime">플레이 시간:</label>
+  <select id="playTime">
+    <option value="1">1시간</option>
+    <option value="2">2시간</option>
+    <option value="3">3시간</option>
+    <option value="4">4시간</option>
+    <option value="5">5시간</option>
+  </select>
+
+  <div class="radio-group">
   <strong>단위:</strong>
-  <label class="radio-highlight"><input type="radio" name="unit" value="won"><span> 원</span></label>
-  <label class="radio-highlight"><input type="radio" name="unit" value="man" checked><span> 만원</span></label>
+  <label><input type="radio" name="unit" value="won"><span>원</span></label>
+  <label><input type="radio" name="unit" value="man" checked><span>만원</span></label>
 </div>
 
-<label for="salePrice">판매금액:</label>
-<input type="number" id="salePrice" placeholder="입력하세요">
+  <label for="salePrice">판매금액:</label>
+  <input type="number" id="salePrice">
 
-<label for="ownerPayment">차주입금금액:</label>
-<input type="number" id="ownerPayment" placeholder="입력하세요">
+  <label for="ownerPayment">차주입금금액:</label>
+  <input type="number" id="ownerPayment">
 
-<div class="unit-select" style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-top: 20px;">
+  <div class="radio-group">
   <strong>계약:</strong>
-  <label class="radio-highlight"><input type="radio" name="type" value="down" checked><span> 다운계약</span></label>
-  <label class="radio-highlight"><input type="radio" name="type" value="normal"><span> 정계약</span></label>
+  <label><input type="radio" name="type" value="down" checked><span>다운계약</span></label>
+  <label><input type="radio" name="type" value="normal"><span>정계약</span></label>
 </div>
 
-
-
-  <label for="commission">알선수수료:</label>
-  <input type="number" id="commission" placeholder="입력하세요">
+<label for="commission">알선수수료:</label>
+  <input type="number" id="commission">
 
   <label for="serviceFee">서비스 비용:</label>
-  <input type="number" id="serviceFee" placeholder="입력하세요">
+  <input type="number" id="serviceFee">
+
+  <label for="customerName">손님 이름:</label>
+  <input type="text" id="customerName">
+
+  <label for="customerPhone">손님 번호:</label>
+  <input type="text" id="customerPhone">
+
+  <label for="customerType">손님 성향:</label>
+  <input type="text" id="customerType">
+
+  <div class="radio-group">
+  <strong>판매 구분:</strong>
+  <label><input type="radio" name="saleType" value="export"><span>수출</span></label>
+  <label><input type="radio" name="saleType" value="brokerage" checked><span>손님</span></label>
 </div>
-<div class="result" id="profitResult">총 수익: 0원</div>
 
-    <div id="brokerageExtras">
-
-  <div id="customerInfo">
-    <label for="customerName">손님 이름:</label>
-    <input type="text" id="customerName" placeholder="입력하세요">
-
-    <label for="customerPhone">손님 번호:</label>
-    <input type="text" id="customerPhone" placeholder="입력하세요">
-
-    <label for="customerType">손님 성향:</label>
-    <input type="text" id="customerType" placeholder="입력하세요">
-  </div>
-</div>
 <label for="adPlatform">판매 경로:</label>
-    <input type="text" id="adPlatform" placeholder="입력하세요">
-  <button id="saveBtn" type="button" style="margin-top:20px;">저장하기</button>
+  <input type="text" id="adPlatform">
 
-<div style="margin-top:30px;">
+  <div class="result" id="profitResult">총 수익: 0원</div>
+
+  <button id="saveBtn">저장하기</button>
+
   <h3>저장된 목록</h3>
   <ul id="savedList"></ul>
-<div id="popup" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:#fff; border-radius:12px; padding:25px 30px; box-shadow:0 10px 30px rgba(0,0,0,0.2); z-index:999; max-width:90%; width:420px; font-size:15px; line-height:1.6;">
-  <div id="popupContent" style="margin-bottom: 20px;"></div>
-  <button type="button" onclick="document.getElementById('popup').style.display='none'" style="padding: 10px 20px; background: linear-gradient(to right, #ff5f6d, #ffc371); color: white; font-weight: bold; border: none; border-radius: 6px; cursor: pointer; width: 100%;">닫기</button>
-</div>
-</div>
-</form>
+
+  <div id="popup" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:#fff; padding:20px; border-radius:10px; box-shadow:0 0 10px rgba(0,0,0,0.2); max-width:400px;">
+    <div id="popupContent"></div>
+    <button onclick="document.getElementById('popup').style.display='none'">닫기</button>
+  </div>
 
   <script>
-function getSelectedType() {
-  const typeRadios = document.getElementsByName('type');
-  return [...typeRadios].find(r => r.checked)?.value || 'down';
-}
-    document.addEventListener('DOMContentLoaded', function () {
-      const saleTypeRadios = document.getElementsByName('saleType');
-      const exportFields = ['customerType'];
-      const exportRenameMap = {
-        customerName: '수출업자 이름:',
-        customerPhone: '수출업자 번호:'
-      };
-      const modeRadios = document.getElementsByName('mode');
-      const formElement = document.getElementById('mainForm');
-      const playTime = document.getElementById('playTime');
-      const playTimeLabel = document.querySelector('label[for="playTime"]');
-      const salePriceInput = document.getElementById('salePrice');
-      const ownerPaymentInput = document.getElementById('ownerPayment');
-      const profitResult = document.getElementById('profitResult');
-      const commissionInput = document.getElementById('commission');
-      const typeRadios = document.getElementsByName('type');
-      const serviceFeeInput = document.getElementById('serviceFee');
-      const unitRadios = document.getElementsByName('unit');
-
-      function formatToWon(value) {
-        return `${value.toLocaleString()}원`;
-      }
-
-      function getSelectedType() {
-        return [...typeRadios].find(r => r.checked)?.value || 'down';
-      }
-
-      function getUnitMultiplier() {
-        return [...unitRadios].find(r => r.checked)?.value === 'man' ? 10000 : 1;
-      }
-
-      function calculateProfit() {
-        const multiplier = getUnitMultiplier();
-        const sale = (parseFloat(salePriceInput.value) || 0) * multiplier;
-        const owner = (parseFloat(ownerPaymentInput.value) || 0) * multiplier;
-        const commission = (parseFloat(commissionInput.value) || 0) * multiplier;
-        const serviceFee = (parseFloat(serviceFeeInput.value) || 0) * multiplier;
-        let profit = sale - owner;
-        if (getSelectedType() === 'normal') {
-          profit *= (1 - 0.1209);
-        }
-        profit += commission;
-        profit -= serviceFee;
-        profitResult.textContent = `총 수익: ${formatToWon(Math.round(profit))}`;
-      }
-
-      function updateVisibilityBySaleType() {
-        const selected = [...saleTypeRadios].find(r => r.checked)?.value;
-        exportFields.forEach(id => {
-          const el = document.getElementById(id);
-          const label = document.querySelector(`label[for="${id}"]`);
-          if (el && label) {
-            const display = selected === 'export' ? 'none' : 'inline-block';
-            el.style.display = display;
-            label.style.display = display;
-          }
-        });
-        ['customerName', 'customerPhone'].forEach(id => {
-          const labelSpan = document.querySelector(`label[for="${id}"] span`);
-          if (labelSpan) {
-            labelSpan.textContent = selected === 'export' ? exportRenameMap[id] : (id === 'customerName' ? '손님 이름:' : '손님 번호:');
-          }
-        });
-      }
-
-      function updateFormMode() {
-  const playTime = document.getElementById('playTime');
-  const playTimeLabel = document.querySelector('label[for="playTime"]');
-  if (playTime && playTimeLabel) {
-    playTime.style.display = 'inline-block';
-    playTimeLabel.style.display = 'inline-block';
-  }
-  const customerInfo = document.getElementById('customerInfo');
-  if (customerInfo) customerInfo.style.display = 'block';
-  const brokerageOnly = document.getElementById('brokerageOnly');
-  if (brokerageOnly) brokerageOnly.style.display = 'block';
-  const brokerageFields = document.getElementById('brokerageFields');
-  if (brokerageFields) brokerageFields.style.display = 'block';
-  const brokerageExtras = document.getElementById('brokerageExtras');
-  if (brokerageExtras) brokerageExtras.style.display = 'block';
-}
-
-      [...saleTypeRadios, ...typeRadios, ...unitRadios, commissionInput, serviceFeeInput, salePriceInput, ownerPaymentInput, ...modeRadios].forEach(el => el.addEventListener('input', calculateProfit));
-      saleTypeRadios.forEach(r => r.addEventListener('change', updateVisibilityBySaleType));
-      modeRadios.forEach(r => r.addEventListener('change', updateFormMode));
-
-      const today = new Date();
-      const yyyy = today.getFullYear();
-      const mm = String(today.getMonth() + 1).padStart(2, '0');
-      const dd = String(today.getDate()).padStart(2, '0');
-      document.getElementById('saleDate').value = `${yyyy}-${mm}-${dd}`;
-      document.getElementById('deliveryDate').value = `${yyyy}-${mm}-${dd}`;
-
-      updateVisibilityBySaleType();
-      updateFormMode();
-      calculateProfit();
-    });
-        const saveBtn = document.getElementById('saveBtn');
-      const savedList = document.getElementById('savedList');
-
-      function loadSavedList() {
-        const data = JSON.parse(localStorage.getItem('savedCars') || '[]');
-        savedList.innerHTML = '';
-        data.forEach((item, index) => {
-  const li = document.createElement('li');
-  li.innerHTML = `${item.carName} / ${item.totalProfit || 0}원 / ${item.deliveryDate}`;
-  li.style.cursor = 'pointer';
-  li.addEventListener('click', function(e) {
-    if (!e.target.classList.contains('deleteBtn')) {
-      document.getElementById('popupContent').innerHTML = `
-        <ul style="padding-left: 0; list-style: none;">
-          <li><strong>판매 날짜:</strong> ${item.saleDate || '-'}</li>
-          <li><strong>출고일:</strong> ${item.deliveryDate || '-'}</li>
-          <li><strong>플레이 시간:</strong> ${item.playTime || '-'}</li>
-          <li><strong>판매 구분:</strong> ${item.saleType || '-'}</li>
-          <li><strong>계약 구분:</strong> ${item.contractType || '-'}</li>
-          <li><strong>차량명:</strong> ${item.carName || '-'}</li>
-          <li><strong>차량번호:</strong> ${item.carNumber || '-'}</li>
-          <li><strong>총 수익:</strong> ${item.totalProfit || '불명확'}원</li>
-          <li><strong>알선수수료:</strong> ${item.commission || '-'}</li>
-          <li><strong>서비스 비용:</strong> ${item.serviceFee || '-'}</li>
-          <li><strong>차주 이름:</strong> ${item.ownerName || '-'}</li>
-          <li><strong>차주 번호:</strong> ${item.ownerPhone || '-'}</li>
-          <li><strong>손님 이름:</strong> ${item.customerName || '-'}</li>
-          <li><strong>손님 번호:</strong> ${item.customerPhone || '-'}</li>
-          <li><strong>손님 성향:</strong> ${item.customerType || '-'}</li>
-          <li><strong>판매 경로:</strong> ${item.adPlatform || '-'}</li>
-        </ul>`;
-      document.getElementById('popup').style.display = 'block';
+    function getSelectedType() {
+      return 'down';
     }
-  });
-  savedList.appendChild(li);
-        });
-      }
 
-      saveBtn.addEventListener('click', () => {
-  const carName = document.getElementById('carName').value;
-  const customerName = document.getElementById('customerName').value;
-  const deliveryDate = document.getElementById('deliveryDate').value;
-  const profitText = document.getElementById('profitResult').textContent.replace(/[^0-9]/g, '');
-  const totalProfit = parseInt(profitText || '0');
-  const carNumber = document.getElementById('carNumber').value;
-  const ownerName = document.getElementById('ownerName').value;
-  const ownerPhone = document.getElementById('ownerPhone').value;
-  const customerPhone = document.getElementById('customerPhone').value;
-  const customerType = document.getElementById('customerType').value;
-  const adPlatform = document.getElementById('adPlatform').value;
-  const commission = document.getElementById('commission').value;
-  const serviceFee = document.getElementById('serviceFee').value;
-  const contractType = getSelectedType();
-  const saleType = [...document.getElementsByName('saleType')].find(r => r.checked)?.value || '-';
-  const playTime = document.getElementById('playTime').value;
-  const saleDate = document.getElementById('saleDate').value;
+    function calculateProfit() {
+  const sale = parseFloat(document.getElementById('salePrice').value) || 0;
+  const owner = parseFloat(document.getElementById('ownerPayment').value) || 0;
+  const commission = parseFloat(document.getElementById('commission').value) || 0;
+  const service = parseFloat(document.getElementById('serviceFee').value) || 0;
 
-  const current = JSON.parse(localStorage.getItem('savedCars') || '[]');
-  current.push({ carName, customerName, deliveryDate, totalProfit, carNumber, ownerName, ownerPhone, customerPhone, customerType, adPlatform, commission, serviceFee, contractType, saleType, playTime, saleDate });
-  localStorage.setItem('savedCars', JSON.stringify(current));
-  loadSavedList();
-});
+  const unit = document.querySelector('input[name="unit"]:checked')?.value;
+  let multiplier = 1;
+  if (unit === 'man') multiplier = 10000;
 
+  const contract = document.querySelector('input[name="type"]:checked')?.value;
+  const realSale = sale * multiplier;
+  const realOwner = owner * multiplier;
+  const realCommission = commission * multiplier;
+  const realService = service * multiplier;
+
+  let profit = realSale - realOwner - realService;
+  profit += realCommission;
+
+  if (contract === 'normal') {
+    profit = (realSale - realOwner) * (1 - 0.1209);
+    profit += realCommission;
+    profit -= realService;
+  }
+
+  document.getElementById('profitResult').textContent = '총 수익: ' + Math.floor(profit).toLocaleString() + '원';
+}
+
+    function loadSavedList() {
+      const data = JSON.parse(localStorage.getItem('savedCars') || '[]');
+      const savedList = document.getElementById('savedList');
+      savedList.innerHTML = '';
+      data.forEach((item, index) => {
+        const li = document.createElement('li');
+        const wrapper = document.createElement('div');
+        wrapper.textContent = `${item.carName} / ${item.totalProfit.toLocaleString()}원 / ${item.deliveryDate}`;
+        wrapper.style.display = 'inline-block';
+        wrapper.style.width = 'calc(100% - 70px)';
+        wrapper.onclick = () => {
+          document.getElementById('popupContent').innerHTML = `
+            <strong>차량명:</strong> ${item.carName}<br>
+            <strong>총 수익:</strong> ${item.totalProfit.toLocaleString()}원<br>
+            <strong>출고 날짜:</strong> ${item.deliveryDate}<br>
+            <strong>계약 날짜:</strong> ${item.saleDate}<br>
+            <strong>플레이 시간:</strong> ${item.playTime}<br>
+            <strong>판매금액:</strong> ${item.salePrice}<br>
+            <strong>차주입금금액:</strong> ${item.ownerPayment}<br>
+            <strong>알선수수료:</strong> ${item.commission}<br>
+            <strong>서비스 비용:</strong> ${item.serviceFee}<br>
+            <strong>손님 이름:</strong> ${item.customerName}<br>
+            <strong>손님 번호:</strong> ${item.customerPhone}<br>
+            <strong>손님 성향:</strong> ${item.customerType}<br>
+            <strong>판매 경로:</strong> ${item.adPlatform}`;
+          document.getElementById('popup').style.display = 'block';
+        };
+                const delBtn = document.createElement('button');
+        delBtn.textContent = '삭제';
+        delBtn.style.marginLeft = '10px';
+        delBtn.style.background = '#dc3545';
+        delBtn.style.color = 'white';
+        delBtn.style.border = 'none';
+        delBtn.style.padding = '6px 10px';
+        delBtn.style.borderRadius = '4px';
+        delBtn.style.cursor = 'pointer';
+        delBtn.onclick = (e) => {
+          e.stopPropagation();
+          const data = JSON.parse(localStorage.getItem('savedCars') || '[]');
+          data.splice(index, 1);
+          localStorage.setItem('savedCars', JSON.stringify(data));
+          loadSavedList();
+        };
+        li.appendChild(wrapper);
+        li.appendChild(delBtn);
+        savedList.appendChild(li);
+      });
+    }
+
+    document.querySelectorAll('input, select').forEach(el => {
+      el.addEventListener('input', calculateProfit);
+    });
+
+    document.getElementById('saveBtn').addEventListener('click', () => {
+      const item = {
+        carName: document.getElementById('carName').value,
+        carNumber: document.getElementById('carNumber').value,
+        deliveryDate: document.getElementById('deliveryDate').value,
+        saleDate: document.getElementById('saleDate').value,
+        playTime: document.getElementById('playTime').value,
+        salePrice: document.getElementById('salePrice').value,
+        ownerPayment: document.getElementById('ownerPayment').value,
+        commission: document.getElementById('commission').value,
+        serviceFee: document.getElementById('serviceFee').value,
+        customerName: document.getElementById('customerName').value,
+        customerPhone: document.getElementById('customerPhone').value,
+        customerType: document.getElementById('customerType').value,
+        adPlatform: document.getElementById('adPlatform').value,
+        totalProfit: parseInt(document.getElementById('profitResult').textContent.replace(/[^0-9]/g, '') || '0')
+      };
+      const current = JSON.parse(localStorage.getItem('savedCars') || '[]');
+      current.push(item);
+      localStorage.setItem('savedCars', JSON.stringify(current));
       loadSavedList();
-</script>
+    });
+
+    loadSavedList();
+  </script>
 </body>
 </html>
