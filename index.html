@@ -279,19 +279,21 @@
         wrapper.style.width = 'calc(100% - 70px)';
         wrapper.onclick = () => {
           document.getElementById('popupContent').innerHTML = `
-            <strong>차량명:</strong> ${item.carName}<br>
-            <strong>총 수익:</strong> ${item.totalProfit.toLocaleString()}원<br>
-            <strong>출고 날짜:</strong> ${item.deliveryDate}<br>
-            <strong>계약 날짜:</strong> ${item.saleDate}<br>
-            <strong>플레이 시간:</strong> ${item.playTime}<br>
-            <strong>판매금액:</strong> ${item.salePrice}<br>
-            <strong>차주입금금액:</strong> ${item.ownerPayment}<br>
-            <strong>알선수수료:</strong> ${item.commission}<br>
-            <strong>서비스 비용:</strong> ${item.serviceFee}<br>
-            <strong>손님 이름:</strong> ${item.customerName}<br>
-            <strong>손님 번호:</strong> ${item.customerPhone}<br>
-            <strong>손님 성향:</strong> ${item.customerType}<br>
-            <strong>판매 경로:</strong> ${item.adPlatform}`;
+            <div style="display: grid; grid-template-columns: max-content 1fr; gap: 8px 12px; line-height: 1.4;">
+              <div><strong>차량명:</strong></div><div>${item.carName}</div>
+              <div><strong>총 수익:</strong></div><div>${item.totalProfit.toLocaleString()}원</div>
+              <div><strong>출고 날짜:</strong></div><div>${item.deliveryDate}</div>
+              <div><strong>계약 날짜:</strong></div><div>${item.saleDate}</div>
+              <div><strong>플레이 시간:</strong></div><div>${item.playTime}</div>
+              <div><strong>판매금액:</strong></div><div>${item.salePrice}</div>
+              <div><strong>차주입금금액:</strong></div><div>${item.ownerPayment}</div>
+              <div><strong>알선수수료:</strong></div><div>${item.commission}</div>
+              <div><strong>서비스 비용:</strong></div><div>${item.serviceFee}</div>
+              <div><strong>손님 이름:</strong></div><div>${item.customerName}</div>
+              <div><strong>손님 번호:</strong></div><div>${item.customerPhone}</div>
+              <div><strong>손님 성향:</strong></div><div>${item.customerType}</div>
+              <div><strong>판매 경로:</strong></div><div>${item.adPlatform}</div>
+            </div>`;
           document.getElementById('popup').style.display = 'block';
         };
                 const delBtn = document.createElement('button');
