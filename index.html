@@ -261,7 +261,7 @@
       data.forEach((item, index) => {
         const li = document.createElement('li');
         const wrapper = document.createElement('div');
-        wrapper.textContent = `${item.carName} / ${item.totalProfit.toLocaleString()}원 / ${item.deliveryDate}`;
+        wrapper.innerHTML = `<strong>차량명:</strong> ${item.carName} <strong>총수익:</strong> ${item.totalProfit.toLocaleString()}원 <strong>출고일:</strong> ${item.deliveryDate}`;
         wrapper.style.display = 'inline-block';
         wrapper.style.width = 'calc(100% - 70px)';
         wrapper.onclick = () => {
@@ -338,6 +338,7 @@
   const current = JSON.parse(localStorage.getItem('savedCars') || '[]');
   current.push(item);
   localStorage.setItem('savedCars', JSON.stringify(current));
+  loadSavedList();
   loadSavedList();
   alert('저장되었습니다.');
 });
