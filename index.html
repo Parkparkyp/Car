@@ -308,15 +308,7 @@
     });
 
     document.getElementById('saveBtn').addEventListener('click', () => {
-  const requiredFields = [
-    'carName', 'deliveryDate', 'saleDate', 'salePrice', 'ownerPayment'
-  ];
-
-  const hasEmpty = requiredFields.some(id => !document.getElementById(id).value);
-  if (hasEmpty) {
-    alert('필수 항목을 모두 입력해주세요.');
-    return;
-  }
+  
 
   const item = {
     carName: document.getElementById('carName').value,
@@ -339,7 +331,7 @@
   current.push(item);
   localStorage.setItem('savedCars', JSON.stringify(current));
   loadSavedList();
-  loadSavedList();
+  document.querySelector('html, body').scrollTop = document.getElementById('savedList').offsetTop;
   alert('저장되었습니다.');
 });
 
