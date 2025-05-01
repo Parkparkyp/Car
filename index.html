@@ -134,9 +134,22 @@
   pointer-events: none;
 }
   @media (max-height: 500px) and (orientation: portrait) {
-    .fixed-profit {
-      transform: translateY(-50px);
-    }
+  .fixed-profit {
+    transform: translateY(-50px) !important;
+  }
+}
+
+@media (max-width: 768px) {
+  input:focus, select:focus {
+    scroll-margin-bottom: 80px;
+  }
+
+  .fixed-profit {
+    position: fixed;
+    bottom: env(safe-area-inset-bottom, 0);
+    transform: translateY(-50px);
+  }
+}
   }
 </style>
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -224,8 +237,8 @@
   <ul id="savedList"></ul>
 </div>
 
-  <div id="popup" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:#fff; padding:20px; border-radius:10px; box-shadow:0 0 10px rgba(0,0,0,0.2); max-width:400px;">
-    <div id="popupContent"></div>
+  <div id="popup" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:#fff; padding:16px 20px; border-radius:10px; box-shadow:0 0 12px rgba(0,0,0,0.25); max-width:480px; width:90%; font-size:14px; line-height:1.5;">
+    <div id="popupContent" style="display: grid; grid-template-columns: auto 1fr; gap: 6px 10px;"></div>
     <button onclick="document.getElementById('popup').style.display='none'">닫기</button>
   </div>
 
