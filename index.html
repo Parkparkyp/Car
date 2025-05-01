@@ -6,13 +6,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f7f9fb;
-      color: #333;
-      padding: 20px;
-      max-width: 600px;
-      margin: auto;
-    }
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f1f3f5;
+  color: #333;
+  padding: 20px;
+  max-width: 700px;
+  margin: auto;
+}
+.section {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  margin-bottom: 20px;
+}
     h2, h3 {
       text-align: center;
       margin-bottom: 20px;
@@ -110,11 +117,26 @@
     .radio-group span {
       pointer-events: none;
     }
+    .fixed-profit {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: white;
+      padding: 10px 20px;
+      box-shadow: 0 -2px 6px rgba(0,0,0,0.1);
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
+      z-index: 1000;
+    }
 </style>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
   <h2>중고차 정산서</h2>
+
+  <div class="section">
 
   <label for="carName">차량명:</label>
   <input type="text" id="carName">
@@ -179,12 +201,20 @@
 <label for="adPlatform">판매 경로:</label>
   <input type="text" id="adPlatform">
 
-  <div class="result" id="profitResult">총 수익: 0원</div>
+  </div>
+
+  <div class="section" style="margin-bottom: 80px;">
+    <div class="result">총 수익은 아래 고정 표시됩니다.</div>
+</div>
+
+<div class="fixed-profit" id="profitResult">총 수익: 0원</div>
 
   <button id="saveBtn">저장하기</button>
 
+  <div class="section">
   <h3>저장된 목록</h3>
   <ul id="savedList"></ul>
+</div>
 
   <div id="popup" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:#fff; padding:20px; border-radius:10px; box-shadow:0 0 10px rgba(0,0,0,0.2); max-width:400px;">
     <div id="popupContent"></div>
@@ -304,3 +334,4 @@
   </script>
 </body>
 </html>
+
