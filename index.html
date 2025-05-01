@@ -308,30 +308,41 @@
     });
 
     document.getElementById('saveBtn').addEventListener('click', () => {
-      const item = {
-        carName: document.getElementById('carName').value,
-        carNumber: document.getElementById('carNumber').value,
-        deliveryDate: document.getElementById('deliveryDate').value,
-        saleDate: document.getElementById('saleDate').value,
-        playTime: document.getElementById('playTime').value,
-        salePrice: document.getElementById('salePrice').value,
-        ownerPayment: document.getElementById('ownerPayment').value,
-        commission: document.getElementById('commission').value,
-        serviceFee: document.getElementById('serviceFee').value,
-        customerName: document.getElementById('customerName').value,
-        customerPhone: document.getElementById('customerPhone').value,
-        customerType: document.getElementById('customerType').value,
-        adPlatform: document.getElementById('adPlatform').value,
-        totalProfit: parseInt(document.getElementById('profitResult').textContent.replace(/[^0-9]/g, '') || '0')
-      };
-      const current = JSON.parse(localStorage.getItem('savedCars') || '[]');
-      current.push(item);
-      localStorage.setItem('savedCars', JSON.stringify(current));
-      loadSavedList();
-    });
+  const requiredFields = [
+    'carName', 'deliveryDate', 'saleDate', 'salePrice', 'ownerPayment'
+  ];
+
+  const hasEmpty = requiredFields.some(id => !document.getElementById(id).value);
+  if (hasEmpty) {
+    alert('필수 항목을 모두 입력해주세요.');
+    return;
+  }
+
+  const item = {
+    carName: document.getElementById('carName').value,
+    carNumber: document.getElementById('carNumber').value,
+    deliveryDate: document.getElementById('deliveryDate').value,
+    saleDate: document.getElementById('saleDate').value,
+    playTime: document.getElementById('playTime').value,
+    salePrice: document.getElementById('salePrice').value,
+    ownerPayment: document.getElementById('ownerPayment').value,
+    commission: document.getElementById('commission').value,
+    serviceFee: document.getElementById('serviceFee').value,
+    customerName: document.getElementById('customerName').value,
+    customerPhone: document.getElementById('customerPhone').value,
+    customerType: document.getElementById('customerType').value,
+    adPlatform: document.getElementById('adPlatform').value,
+    totalProfit: parseInt(document.getElementById('profitResult').textContent.replace(/[^0-9]/g, '') || '0')
+  };
+
+  const current = JSON.parse(localStorage.getItem('savedCars') || '[]');
+  current.push(item);
+  localStorage.setItem('savedCars', JSON.stringify(current));
+  loadSavedList();
+  alert('저장되었습니다.');
+});
 
     loadSavedList();
   </script>
 </body>
 </html>
-
