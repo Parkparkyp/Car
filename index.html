@@ -239,6 +239,7 @@
 
   <div id="popup" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:#fff; padding:16px 20px; border-radius:10px; box-shadow:0 0 12px rgba(0,0,0,0.25); max-width:480px; width:90%; font-size:14px; line-height:1.5;">
     <div id="popupContent" style="display: grid; grid-template-columns: auto 1fr; gap: 6px 10px;"></div>
+    <button id="copyBtn" style="margin-top: 10px; background-color: #007bff; color: white;">내용 복사</button>
     <button onclick="document.getElementById('popup').style.display='none'">닫기</button>
   </div>
 
@@ -284,9 +285,9 @@
         const wrapper = document.createElement('div');
         wrapper.innerHTML = `
   <div style="display: flex; justify-content: space-between; gap: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+    <span><strong>출고일:</strong> ${item.deliveryDate}</span>
     <span><strong>차량명:</strong> ${item.carName}</span>
     <span><strong>총수익:</strong> ${item.totalProfit.toLocaleString()}원</span>
-    <span><strong>출고일:</strong> ${item.deliveryDate}</span>
   </div>`;
         wrapper.style.display = 'inline-block';
         wrapper.style.width = 'calc(100% - 70px)';
@@ -308,6 +309,12 @@
               <div><strong>판매 경로:</strong></div><div>${item.adPlatform}</div>
             </div>`;
           document.getElementById('popup').style.display = 'block';
+
+          const copyBtn = document.getElementById('copyBtn');
+          copyBtn.onclick = () => {
+            const text = document.getElementById('popupContent').innerText;
+            navigator.clipboard.writeText(text).then(() => alert('내용이 복사되었습니다.'));
+          };
         };
                 const delBtn = document.createElement('button');
         delBtn.textContent = '삭제';
