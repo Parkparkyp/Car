@@ -117,15 +117,7 @@
     .radio-group span {
       pointer-events: none;
     }
-    .fixed-profit {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: white;
-  padding: 10px 20px;
-  box-shadow: 0 -2px 6px rgba(0,0,0,0.1);
-  font-size: 16px;
+    $1font-size: 22px;
   font-weight: bold;
   text-align: center;
   z-index: 1000;
@@ -135,14 +127,34 @@
 }
   @media (max-height: 500px) and (orientation: portrait) {
   .fixed-profit {
-    transform: translateY(-50px) !important;
-  }
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border-top: 3px solid #ff5f6d;
+  padding: 16px;
+  font-size: 26px;
+  font-weight: bold;
+  color: #ff5f6d;
+  text-align: center;
+  z-index: 1000;
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.08);
+}
+}
 }
 
 @media (max-width: 768px) {
   input:focus, select:focus {
-    scroll-margin-bottom: 80px;
+    scroll-margin-bottom: 100px;
   }
+
+  .fixed-profit {
+    position: fixed;
+    bottom: env(safe-area-inset-bottom, 0);
+    transform: translateY(-80px);
+  }
+}
 
   .fixed-profit {
     position: fixed;
@@ -231,7 +243,7 @@
   </div>
 
   <div class="section" style="margin-bottom: 80px;">
-    <div class="result">총 수익은 아래 고정 표시됩니다.</div>
+  <div class="result" id="topProfit">총 수익: 0원</div>
 </div>
 
 <div class="fixed-profit" id="profitResult">총 수익: 0원</div>
@@ -283,7 +295,9 @@
     profit -= realService;
   }
 
-  document.getElementById('profitResult').textContent = '총 수익: ' + Math.floor(profit).toLocaleString() + '원';
+  const profitText = '총 수익: ' + Math.floor(profit).toLocaleString() + '원';
+  document.getElementById('profitResult').textContent = profitText;
+  document.getElementById('topProfit').textContent = profitText;
 }
 
     function loadSavedList() {
@@ -303,7 +317,8 @@
         wrapper.style.width = 'calc(100% - 70px)';
         wrapper.onclick = () => {
           document.getElementById('popupContent').innerHTML = `
-            <div style="display: grid; grid-template-columns: max-content 1fr; gap: 8px 12px; line-height: 1.4;">
+            $1
+              <div><strong>판매 구분:</strong></div><div>${item.saleType === 'export' ? '수출' : '손님'}</div>
               <div><strong>차량명:</strong></div><div>${item.carName}</div>
               <div><strong>총 수익:</strong></div><div>${item.totalProfit.toLocaleString()}원</div>
               <div><strong>출고 날짜:</strong></div><div>${item.deliveryDate}</div>
